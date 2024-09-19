@@ -1,0 +1,182 @@
+/* General body styling */
+body {
+    font-family: 'Helvetica', sans-serif;
+    background-color: #FCE4EC;
+    color: #333;
+    text-align: center;
+}
+
+header {
+    margin: 20px 0;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column; /* Stacks the title and score vertically */
+    justify-content: center; /* Centers content horizontally */
+    align-items: center; /* Centers content vertically */
+    text-align: center;
+}
+
+
+#revealScoreButton {
+    background-color: #FF4081;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: transform 0.3s ease-in-out;
+}
+
+#revealScoreButton:hover {
+    background-color: #E91E63;
+    transform: scale(1.05);
+}
+
+#scoreDisplay {
+    font-size: 1.5em;
+    color: #FF4081;
+    font-weight: bold;
+}
+
+h1 {
+    color: #FF4081;
+    font-size: 3em;
+}
+
+.game-container {
+    margin: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1.2em;
+    width: 80%;
+    margin: 10px 0;
+    border: 2px solid #FF4081;
+    border-radius: 10px;
+}
+
+button {
+    background-color: #FF4081;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #E91E63;
+    transform: scale(1.05);
+}
+
+#timer {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* Timer Box Styling */
+.timer-box {
+    width: 200px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 3px solid #FF4081;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #FF4081, #FF80AB);
+    color: white;
+    font-size: 32px;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.timer-box:hover {
+    transform: scale(1.05);
+}
+
+footer {
+    margin-top: 20px;
+}
+
+/* Styling the audio buttons section */
+#audioButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* Styling for individual audio buttons */
+.audio-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #FF4081;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Add missing semicolon */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out; /* Add missing semicolon */
+    margin-bottom: 15px;
+}
+
+.audio-button:hover {
+    background-color: #E91E63;
+    transform: scale(1.05);
+}
+
+#submitGuess, #hintButton {
+    display: block;
+    width: 200px; /* Set a specific width for the buttons */
+    margin: 10px auto; /* Center the buttons and add some vertical space */
+    padding: 10px 10px; /* Adjust padding to improve the appearance */
+    font-size: 1.2em; /* Ensure the text is readable */
+    border-radius: 5px; /* Add a slight border-radius */
+    background-color: #FF4081; /* Ensure background color is applied */
+    color: white;
+    border: none;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#submitGuess:hover, #hintButton:hover {
+    background-color: #E91E63; /* Add hover effect for buttons */
+}
+
+
+/* Styling for button icons */
+.button-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    #audioButtons {
+        gap: 10px;
+    }
+
+    .audio-button {
+        font-size: 16px;
+        padding: 8px 16px;
+    }
+
+    .button-icon {
+        width: 30px;
+        height: 30px;
+    }
+}
