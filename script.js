@@ -20,7 +20,7 @@ let songs = {
             instrumental: 'audio/tvfn_instrumental.mp3',
             vocals: 'audio/tvfn_vocals.mp3',
         },
-        hint: 'Hint: Some fans believe the lyric is a reference to when Gyllenhaal flew Swift to London, where they stayed at the Dorchester Hotel, in 2010.',
+        hint: "Hint: Taylor Swift met this song's muse at the 2012 choice awards.",
     },
     // Add more songs here
 };
