@@ -1,5 +1,7 @@
 let songs = {
-    'Tim McGraw': {
+    /* 
+    
+        'Tim McGraw': {
         correctAnswer: 'Tim McGraw',
         layers: {
             bass: 'audio/tmg_bass.mp3',
@@ -22,6 +24,30 @@ let songs = {
         },
         hint: "Hint: Taylor Swift met this song's muse at the 2012 choice awards.",
     },
+    
+    */
+   
+   'End Game': {
+       acceptableAnswers: ['End Game', 'end game', 'eg'],
+       layers: {
+           bass: 'audio/rep/endgame/eg_bass.wav',
+           drums: 'audio/rep/endgame/eg_drums.wav',
+           instrumental: 'audio/rep/endgame/eg_instrumental.wav',
+           vocals: 'audio/rep/endgame/egfull.mp3'
+       }
+   },
+    '...Ready For It?': {
+        /* correctAnswer: '...Ready For It?', */
+        acceptableAnswers: ['...Ready For It?', 'ready for it', 'rfi'],
+        layers: {
+            drums: 'audio/rep/rfi/rfi_drums.wav',
+            bass: 'audio/rep/rfi/rfi_bass.wav',
+            synth: 'audio/rep/rfi/rfi_synth.wav',
+            vocals: 'audio/rep/rfi/rfi_vocals.mp3'
+
+        }
+    }
+
     // Add more songs here
 };
 
@@ -41,27 +67,35 @@ function startSong(songName) {
     layersRevealed = 0;
     revealedLayers = []; // reset the revealed layers
     resetTimer();
+    document.getElementById('scoreDisplay').style.display = 'none';
+    document.getElementById('nextLayerButton').disabled = false;
     document.getElementById('hintText').textContent = '';
     document.getElementById('feedback').textContent = '';
     document.getElementById('audioButtons').innerHTML = '';
-    document.getElementById('revealScoreSection').style.display = 'none'; // Hide the reveal score button
+    /* document.getElementById('revealScoreSection').style.display = 'none'; // Hide the reveal score button */
+    revealNextLayer();
+    generateAudioButtons();
 
     // Only the first layer revealed at start
-    revealNextLayer();
 }
 
-// Generates the audio buttons based on revealed layers
+function normalizeString(str) {
+    return str.toLowerCase().replace(/[\s\W_]+/g, '');
+}
+// Old
+/* 
 function generateAudioButtons(layers) {
     const audioButtonsDiv = document.getElementById('audioButtons');
     audioButtonsDiv.innerHTML = '';  // Clear previous buttons
-
+    
     revealedLayers.forEach((instrument) => {
         const audioFile = currentSong.layers[instrument];
         const button = document.createElement('button');
-        button.classList.add('audio-button');
+        button.classList.add('btn-17');
         button.innerHTML = `
-            <img src="icons/${instrument}.png" alt="${instrument} icon" class="button-icon">
-            Play ${capitalizeFirstLetter(instrument)}
+        <span class="text-container">
+        <img src="icons/${instrument}.png" alt="${instrument} icon" class="button-icon">
+        Play ${capitalizeFirstLetter(instrument)}
         `;
         button.addEventListener('click', () => {
             playLayer(audioFile);
@@ -73,8 +107,55 @@ function generateAudioButtons(layers) {
         audioButtonsDiv.appendChild(button);
     });
 }
+*/
+// Generates the audio buttons based on revealed layers
+function generateAudioButtons() {
+    const audioButtonsDiv = document.getElementById('audioButtons');
+    audioButtonsDiv.innerHTML = '';  // Clear previous buttons
+
+    Object.keys(currentSong.layers).forEach((instrument) => {
+        const audioFile = currentSong.layers[instrument];
+        const button = document.createElement('button');
+        button.classList.add('btn-17', 'layer-button');
+
+        if (revealedLayers.includes(instrument)) {
+            button.classList.add('revealed');
+            button.disabled = false;
+        } else {
+            button.classList.add('locked');
+            button.disabled = true;
+        }
+
+        button.innerHTML = `
+            <span class="text-container">
+
+            <img src="icons/${instrument}.png" alt="${instrument} icon" class="button-icon">
+
+            Play ${capitalizeFirstLetter(instrument)}
+        `;
+
+        // Store the instrument name in a data attribute for later reference
+        button.dataset.instrument = instrument;
+
+        // Add the event listener regardless, but only play if revealed
+        button.addEventListener('click', () => {
+            if (button.classList.contains('revealed')) {
+                playLayer(audioFile);
+                if (!timerStarted) {
+                    startTimer();
+                    timerStarted = true;
+                }
+            }
+        });
+
+        audioButtonsDiv.appendChild(button);
+    });
+}
+
+
 
 // Reveal the next layer
+/* 
 function revealNextLayer() {
     const layerNames = Object.keys(currentSong.layers);
     if (layersRevealed < layerNames.length) {
@@ -86,6 +167,36 @@ function revealNextLayer() {
         document.getElementById('nextLayerButton').disabled = true; // Disable the button
     }
 }
+*/
+
+function revealNextLayer() {
+    const layerNames = Object.keys(currentSong.layers);
+    if (layersRevealed < layerNames.length) {
+        const instrument = layerNames[layersRevealed];
+        revealedLayers.push(instrument);
+        layersRevealed++;
+
+        // Update the corresponding button
+        const button = document.querySelector(`.layer-button[data-instrument="${instrument}"]`);
+        if (button) {
+            button.classList.remove('locked');
+            button.classList.add('revealed');
+            button.disabled = false;
+
+            // Optionally, add a smooth transition effect
+            setTimeout(() => {
+                button.classList.add('fade-in');
+            }, 10);
+        }
+
+        // Update the feedback or other UI elements if necessary
+    } else {
+        document.getElementById('feedback').textContent = 'All layers revealed!';
+        document.getElementById('nextLayerButton').disabled = true;
+    }
+}
+
+
 
 // Play a specific layer and stop the current one if playing
 function playLayer(audioFile) {
@@ -180,33 +291,70 @@ function calculateScore(time, layersRevealed, hintUsed) {
 }
 
 // Function to display the score when the "Reveal Score" button is clicked
+
 function revealScore() {
     const score = calculateScore(timeElapsed, layersRevealed, hintGiven);
     document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
     document.getElementById('scoreDisplay').style.display = 'block'; // Show the score
 }
+ 
+
 
 // Show the "Reveal Score" button after the game ends
+/*
 function showRevealScoreButton() {
     document.getElementById('revealScoreSection').style.display = 'block'; // Show the button
 }
+*/
 
 // Attach event listener to the "Reveal Score" button
+/*
 document.getElementById('revealScoreButton').addEventListener('click', revealScore);
+*/
+
+
 
 // Submit guess logic - reveal the score button after the guess is correct
-document.getElementById('submitGuess').addEventListener('click', () => {
-    let guess = document.getElementById('guessInput').value;
-    if (guess.toLowerCase() === currentSong.correctAnswer.toLowerCase()) {
-        clearInterval(timerInterval);
-        document.getElementById('feedback').textContent = `Correct! You guessed it in ${formatTime(timeElapsed)}.`;
+document.getElementById('submitGuess').addEventListener('click', (e) => {
+    e.preventDefault();
 
-        // Show the "Reveal Score" button after a correct guess
-        showRevealScoreButton();
+    let guessInput = document.getElementById('guessInput');
+    let guess = normalizeString(guessInput.value.trim());
+
+    let isCorrect = currentSong.acceptableAnswers.some(answer => {
+        return normalizeString(answer) === guess;
+    });
+
+    if (isCorrect) {
+        clearInterval(timerInterval);
+        /* document.getElementById('feedback').textContent = `Correct! You guessed it in ${formatTime(timeElapsed)}.`; */
+
+        if (currentAudio) {
+            currentAudio.pause();
+        }
+
+        // Automatically calculate and display the score
+        const score = calculateScore(timeElapsed, layersRevealed, hintGiven);
+        document.getElementById('scoreDisplay').textContent = `Score: ${score}`;
+        document.getElementById('scoreDisplay').style.display = 'block';
+
+        // Clear the input field
+        guessInput.value = '';
+
     } else {
-        document.getElementById('feedback').textContent = 'Wrong guess. Try again!';
+        // Add the shake effect to the input field
+        guessInput.classList.add('shake');
+
+        // Remove the shake class after animation ends
+        guessInput.addEventListener('animationend', function handler() {
+            guessInput.classList.remove('shake');
+            guessInput.removeEventListener('animationend', handler);
+        });
     }
 });
+
+
+
 
 document.getElementById('hintButton').addEventListener('click', () => {
     if (!hintGiven) {
@@ -244,4 +392,4 @@ document.getElementById('nextLayerButton').addEventListener('click', () => {
 });
 
 // Start the game with the first song
-startSong('The Very First Night');
+startSong('End Game'); 
