@@ -168,7 +168,7 @@ button {
 }
 
 #timer {
-    font-size: 1.5em;
+    font-size: 2em;
     font-weight: bold;
 }
 
@@ -185,6 +185,11 @@ button {
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
   overflow: hidden;
+}
+
+.timer-box #timer {
+    position: relative;
+    z-index: 2; /* Keeps it above the fog effect */
 }
 
 .timer-box::before {
@@ -815,4 +820,3 @@ footer {
     outline: none;
     box-shadow: inset 2px 2px 5px #bcbcbc, inset -2px -2px 5px #ffffff, 2px 2px 5px #bcbcbc, -2px -2px 5px #ffffff;
   }
-
