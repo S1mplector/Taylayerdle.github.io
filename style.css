@@ -118,7 +118,7 @@ header {
 /* Gradient text effect for the Taylayerdle label */
 .gradient-text {
   font-size: 3em; /* Adjust font size as needed */
-  background: linear-gradient(25deg, rgb(255, 255, 255), black);
+  background: linear-gradient(180deg, rgb(154, 154, 154), rgb(38, 38, 38));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
