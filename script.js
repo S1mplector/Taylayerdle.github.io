@@ -36,6 +36,7 @@ let songs = {
            vocals: 'audio/rep/endgame/egfull.mp3'
        }
    },
+
     '...Ready For It?': {
         /* correctAnswer: '...Ready For It?', */
         acceptableAnswers: ['...Ready For It?', 'ready for it', 'rfi'],
@@ -44,9 +45,20 @@ let songs = {
             bass: 'audio/rep/rfi/rfi_bass.wav',
             synth: 'audio/rep/rfi/rfi_synth.wav',
             vocals: 'audio/rep/rfi/rfi_vocals.mp3'
-
         }
-    }
+    },
+
+    'I Did Something Bad': {
+        /* correctAnswer: '...Ready For It?', */
+        acceptableAnswers: ['I Did Something Bad', 'i did something bad', 'idsb'],
+        layers: {
+            drums: 'audio/rep/idsb/idsb_drums_final.wav',
+            bass: 'audio/rep/idsb/idsb_drums+bass_final.wav',
+            synth: 'audio/rep/idsb/idsb_synth_final.wav',
+            vocals: 'audio/rep/idsb/idsb_vocals.mp3'
+        }
+    },
+
 
     // Add more songs here
 };
